@@ -1,0 +1,38 @@
+{
+  "name": "projectmanagementapplication",
+  "version": "1.0.0",
+  "description": "project management application ",
+  "keywords": [
+    "first",
+    "project",
+    "project",
+    "Management",
+    "app"
+  ],
+  "homepage": "https://github.com/AdityaJodha26/ProjectManagementApplication#readme",
+  "bugs": {
+    "url": "https://github.com/AdityaJodha26/ProjectManagementApplication/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdityaJodha26/ProjectManagementApplication.git"
+  },
+  "license": "ISC",
+  "author": "Aditya Jodha",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14",
+    "prettier": "3.9.4"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongoose": "^9.7.4"
+  }
+}

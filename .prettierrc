@@ -1,0 +1,9 @@
+{
+   "tabwidth" : 2 ,
+   "useTabs" : false , 
+   "semi" : true , 
+   "sigleQuote" : false ,
+   "trailingComma": "all" ,
+   "bracketSpacing" : true
+
+}
