@@ -1,0 +1,56 @@
+Expressjs - is the most popular nodejs web application framework, designed for building web applications 
+
+    Key Characteristics:
+
+        Minimal and flexible
+        Unopinionated (you decide how to structure your app)
+        Lightweight and fast
+        Extensible through middleware
+        Huge ecosystem of plugins and extensions
+
+    why express :
+
+        a robust routing system 
+        http helpers 
+        support for middleware to respond to http requests
+
+    routing : refers to how an application responds to client requests to specific endpoints (URIs) using different HTTP methods 
+
+    
+Middleware : are the function which have access to request obj , response obj and the next middleware
+
+    Middleware can :
+        - execute any code 
+        - modify request and response objects 
+        - end the request response cycle
+        - call the next middleware in the stack 
+
+    Express includes several useful middleware functions:
+        - express.json() - Parse JSON request bodies - (if the user sends the data in json then convert it into js object)
+        - express.urlencoded() - Parse URL-encoded request bodies
+        - express.static() - Serve static files( can automatically serve public files)
+        - express.Router() - Create modular route handlers
+
+    # CORS middleware ( Cross Origin Resource Sharing ) is a mechanism implemented by web browser  that controls whether a web page from one origin can make requests to a server on another origin .
+
+        - Origin is made up of Protocol , Domain and Port 
+            if any of these(p ,d ,p) change , its a different port then 
+
+        - why cors is needed  
+            frontend is on port 5173 and backend is on port 3000 . when react try to fetch data  the browser blocks the request by default for security 
+            
+            - why browser blocks the requests 
+                without cors , any website you visit could secretly make request to other websites using your browser
+            
+        Enabling CORS 
+            - install cors 
+            - import cors 
+            - CORS_ORIGIN = {"http://localhost:5173" , addmore}
+            - app.js 
+                app.use(cors({
+                origin: process.env.CORS_ORIGIN?.split(",") || "http://localhost:5173",
+                credentials: true,
+                methods: ["GET","POST","PUT","PATCH","DELETE","OPTIONS"],
+                allowedHeaders: ["CONTENT_TYPE","AUTHORIZATION"]
+                }));
+

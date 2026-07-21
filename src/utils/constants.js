@@ -3,7 +3,7 @@ export const UserRolesEnum = {
     PROJECT_ADMIN : "project_admin" , 
     MEMBER : "member" ,
 }
-export const AvailableUserRole = Object.values(UserRolesEnum) ; 
+export const AvailableUserRole = Object.values(UserRolesEnum) ; // role{enum:AvailableUserRole}
 
 export const TaskStatusEnum = {
     TODO : "todo " , 

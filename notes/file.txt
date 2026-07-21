@@ -1,0 +1,64 @@
+1) if you want to use import the file type is module , if require then 'commonjs' 
+
+2) Setup project - use 'prettier' for configurations 
+        - ".prettierrc " is the file for writing configuration 
+        - ".prettierignore" dont touch the files written inside it 
+    git init command for storing in git 
+        - .gitignore file ( node modules , .env)
+
+3) for constant restarting of your project
+        - use nodemon as dev to constantly restart your server
+
+4) install dotenv  - it is used to store configuration and sensitive info 
+        - import it on the main entry page 
+        - dotenv.config method : search for the env file (path : "./.env)
+        - process.env.vname : is used to get any variable from the envfile
+
+5) mkdir - used to create folder 
+   cd - goes into the folder 
+   cd.. - to go outside of the folder
+
+6) index.js should be inside src 
+
+7) Express - npm install express 
+        - npm install express --save 
+        - express is the node js web application framework , designed for building web applications and apis
+        (Routing) - refers to how an application responds to client requests to specific endpoints using diff http methods
+        routing methods are - 
+                a) get - used to retrieve data from the server 
+                        eg - "/blog" used to retrieve blog post 
+                b) post - used when the clients sends new data to the server 
+                        eg - user sign in  , create blog 
+                c) put - means updating existing data 
+                        eg - update profile , change password 
+                d) delete - used to delete data ; 
+        how it is used 
+                - import express from "express" 
+                  const app = express() 
+                  app.get("/" , (req , res) => {
+                        res.send("this is the home page")
+                  })
+                  app.listen(Port(.env) ,()=>{
+                        console.log(`server is listening at the port ${Port}) ; 
+                  })
+8) Postman - we use postman to test our backend apis without needing a frontend
+
+9) index.js is the main entry point so move express and its code to app.js
+        - export default app from app.js and import it into index.js
+
+10) Api response - class is a utility class that helps you send consistent API      responses from your Express server.
+
+11) constant.js file - this file is used to define constants (fixed values) that   are used throughout your application.
+        Instead of writing strings like "admin" or "todo" everywhere, you define them once and reuse them.
+        This helps avoid typos, makes the code easier to maintain, and keeps values consistent.
+ 
+        simply use - UserRolesEnum.ADMIN 
+
+12) Mongoose is an ODM (object data Modeling Library) . It helps nodejs application communicate with mongoDB
+        why async await :
+                Connecting to a database takes time because:
+                Your app contacts the MongoDB server.
+                MongoDB verifies the connection.
+                A network request is involved.
+                So mongoose.connect() returns a Promise, which is why we use async/await 
+
