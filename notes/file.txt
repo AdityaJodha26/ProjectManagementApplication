@@ -62,3 +62,27 @@
                 A network request is involved.
                 So mongoose.connect() returns a Promise, which is why we use async/await 
 
+13) HealthCheckApi - it is a simple api used to check whether the server is running and serving the requests or not 
+
+        to avoid too many try and catch
+         we use ' async handlers `
+                const asyncHandler = (requestHandler) =>{
+                        return ( req , res , next) => {
+                                Promise.resolve(requestHandler(req, res, next))
+                                .catch(next) ; 
+                        }
+                }
+
+14) bcyrpt - hashes password . If someone steals your database , they cannot directly see user's password 
+        use a pre function before saving user data , in which if a user has changed password then we will hash it .
+        userSchema.pre("save", async function(){
+                if(!this.isModified("password") return next()) 
+                this.password = await bcyrpt.hash(this.password , 10) 
+                next() ; 
+        })
+    Schema - tells that how every user should look like 
+
+15) Mailgen Content is used to create html email
+    Mailtrap for sending email 
+        install nodemailer - it delivers email
+

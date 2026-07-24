@@ -20,11 +20,13 @@ app.get("/" , (req , res)=>{
 })
 
 import healthCheckRouter from "./routes/healthcheck.routes.js" ; 
+import authRouter from "./routes/auth.routes.js" 
+import { healthcheck } from "./controllers/healthcheck.controllers.js";
+
+app.use("/api/v1/auth" , authRouter)
 app.use("/api/v1/healthcheck" , healthCheckRouter) ;
 
-app.get("/instagram" , (req, res)=>{
-    res.send("this is the instagram page babe ") ;
-})
+
 
 export default app ;  
 
