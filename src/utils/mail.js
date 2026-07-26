@@ -1,4 +1,4 @@
-import mailgen from "mailgen" ; 
+import Mailgen from "mailgen" ; 
 import nodemailer from "nodemailer" ;
 
 const sendEmail = async(options) =>{
@@ -12,13 +12,19 @@ const sendEmail = async(options) =>{
     const emailTextual = mailGenerator.generatePlaintext(options.mailgenContent) ;
     const emailHTML = mailGenerator.generate(options.mailgenContent) ; 
     const transporter = nodemailer.createTransport({
-        host:process.env.MAILGEN_SMTP_HOST ,
-        port:process.env.MAILGEN_SMTP_PORT ,
+        host:process.env.MAILTRAP_SMTP_HOST ,
+        port:process.env.MAILTRAP_SMTP_PORT ,
         auth:{
-            user:process.env.MAILGEN_SMTP_USERNAME ,
-            password:process.env.MAILGEN_SMTP_PASSWORD,
+            user:process.env.MAILTRAP_SMTP_USERNAME ,
+            pass:process.env.MAILTRAP_SMTP_PASSWORD,
         }
     })
+    console.log({
+    host: process.env.MAILTRAP_SMTP_HOST,
+    port: process.env.MAILTRAP_SMTP_PORT,
+    user: process.env.MAILTRAP_SMTP_USERNAME,
+    passLoaded: !!process.env.MAILTRAP_SMTP_PASSWORD,
+    });
     const mail ={
         from:"mail.taskmanager@example.com" ,
         to: options.email, 
@@ -27,14 +33,15 @@ const sendEmail = async(options) =>{
         html :emailHTML , 
 
     }
-    try{
-        await transporter.sendEmail(mail) ;
+    try {
+        const info = await transporter.sendMail(mail);
 
-    }catch(error){ 
-        console.error("na")
-        console.log("error" , error); 
-
-    }
+        console.log("Email sent successfully");
+        console.log(info);
+    } catch (error) {
+        console.error("Email sending failed:");
+        console.error(error);
+}
 }
 
 const emailVerificationMailGenContent = (username , emailVerificationUrl)=>{
