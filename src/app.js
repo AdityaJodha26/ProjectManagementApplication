@@ -24,6 +24,7 @@ import authRouter from "./routes/auth.routes.js"
 import { healthcheck } from "./controllers/healthcheck.controllers.js";
 
 app.use("/api/v1/auth" , authRouter)
+
 app.use("/api/v1/healthcheck" , healthCheckRouter) ;
 
 
