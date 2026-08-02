@@ -86,3 +86,5 @@
     Mailtrap for sending email 
         install nodemailer - it delivers email
 
+16) Validation - in project is the process of checking whether incoming data is correct, complete, safe, and follows your application's rules before using or storing it.
+

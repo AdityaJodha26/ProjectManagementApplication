@@ -2,7 +2,7 @@ import {User} from "../models/users.models.js" ;
 import {ApiResponse} from "../utils/apiResponse.js" ; 
 import {ApiErrors} from "../utils/apiErrors.js" ; 
 import {asyncHandler} from "../utils/async-handler.js" ; 
-import {sendEmail} from "../utils/mail.js" ; 
+import {sendEmail ,emailVerificationMailGenContent} from "../utils/mail.js" ; 
 const generateAccessAndRefreshTokens = async (userId) => {
     try{
         const user = await User.findById(userId) ;
@@ -36,27 +36,21 @@ const registerUser = asyncHandler( async (req , res ) => {
         username , 
         isEmailVerified : false
     })
-    const {unHashedToken , HashedToken , tokenExpiry } = user.generateTemporaryToken() ; 
+    const {unhashedToken , hashedToken , tokenExpiry } = user.generateTemporaryToken() ; 
     
-    const unhashedToken = unHashedToken || unHashedToken === undefined ? unHashedToken : undefined;
-    const hashedToken = HashedToken || HashedToken === undefined ? HashedToken : undefined;
+    
+    
 
-    // Prefer common lowercased variable names if provided by the model method
-    const _unhashed = unhashedToken ?? (typeof unhashedToken === 'string' ? unhashedToken : undefined);
-    const _hashed = hashedToken ?? (typeof hashedToken === 'string' ? hashedToken : undefined);
-
-    // assign tokens if available
-    if (_hashed) user.emailVerificationToken = _hashed;
-    if (tokenExpiry) user.emailVerificationExpiry = tokenExpiry ; 
-
+    user.emailVerificationToken = hashedToken;
+    user.emailVerificationExpiry = tokenExpiry;
     await user.save({validateBeforeSave : false}) 
 
     await sendEmail({
         email: user?.email,
         subject:"please verify the email ",
-        mailgenContent : emailVerificationMailgenContent(
+        mailgenContent : emailVerificationMailGenContent(
             user.username , 
-            `${req.protocol}://${req.get("host")}/api/v1/users/verify-email/${_unhashed || unhashedToken}` ,
+            `${req.protocol}://${req.get("host")}/api/v1/users/verify-email/${unhashedToken}` ,
             
         )
 
@@ -78,5 +72,6 @@ const registerUser = asyncHandler( async (req , res ) => {
         )
     )
 })
+export {registerUser} 
 
 
