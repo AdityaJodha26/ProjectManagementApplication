@@ -1,0 +1,71 @@
+what is nodejs - 
+        Node.js — Quick Summary
+        Node.js is a runtime environment that allows you to run JavaScript outside the browser.
+        It is commonly used to build the backend/server of web applications.
+        JavaScript = programming language.
+        Node.js = environment that runs JavaScript on the server.
+        How it works
+        Frontend (React)
+            ↓
+        HTTP Request
+            ↓
+        Node.js Backend
+            ↓
+        Business Logic
+            ↓
+        Database
+            ↓
+        Node.js
+            ↓
+        Response → Frontend
+        Why use Node.js?
+        Build APIs
+        Handle authentication
+        Connect to databases
+        Build real-time apps
+        Handle file uploads
+        Build SaaS/e-commerce backends
+        Use JavaScript across both frontend and backend
+        Node.js + Express
+        Express.js is a framework that makes building Node.js servers and APIs easier.
+        Your typical backend stack:
+        JavaScript
+        ↓
+        Node.js
+        ↓
+        Express.js
+        ↓
+        REST API
+        ↓
+        MongoDB / PostgreSQL
+        One-line definition:
+        Node.js allows JavaScript to run on the server, making it possible to build backend applications with JavaScript.
+
+backend flow -
+        Frontend
+        ↓
+        HTTP Request
+        ↓
+        Node.js Server
+        ↓
+        Route
+        ↓
+        Middleware
+        ↓
+        Controller
+        ↓
+        Service / Business Logic
+        ↓
+        Database
+        ↓
+        Response
+        ↓
+        Frontend
+
+        What each does:
+        Route → decides which function handles the request.
+        Middleware → authentication, validation, etc.
+        Controller → handles the request/response.
+        Service → contains the application's business logic.
+        Database → stores and retrieves data.
+        Response → sends the result back to the frontend.

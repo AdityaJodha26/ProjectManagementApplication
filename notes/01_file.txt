@@ -46,13 +46,14 @@
 9) index.js is the main entry point so move express and its code to app.js
         - export default app from app.js and import it into index.js
 
-10) Api response - class is a utility class that helps you send consistent API      responses from your Express server.
+10) Api response - class is a utility class that helps you send consistent API responses from your Express server.
 
 11) constant.js file - this file is used to define constants (fixed values) that   are used throughout your application.
         Instead of writing strings like "admin" or "todo" everywhere, you define them once and reuse them.
         This helps avoid typos, makes the code easier to maintain, and keeps values consistent.
  
         simply use - UserRolesEnum.ADMIN 
+        store them in array for validation 
 
 12) Mongoose is an ODM (object data Modeling Library) . It helps nodejs application communicate with mongoDB
         why async await :
@@ -63,15 +64,20 @@
                 So mongoose.connect() returns a Promise, which is why we use async/await 
 
 13) HealthCheckApi - it is a simple api used to check whether the server is running and serving the requests or not 
+                   - used by deployment platforms and monitering systems can periodically to check the system is running ,
+                   is the database accessible 
 
         to avoid too many try and catch
-         we use ' async handlers `
-                const asyncHandler = (requestHandler) =>{
-                        return ( req , res , next) => {
-                                Promise.resolve(requestHandler(req, res, next))
-                                .catch(next) ; 
-                        }
-                }
+         we use ' async handlers ` - it is used when a route has to do something that takes time
+                                    then we will use async and await , we have to use try and catch for error 
+                                    so to avoid this at every route we use async handler 
+
+                                        const asyncHandler = (requestHandler) =>{
+                                                return ( req , res , next) => {
+                                                        Promise.resolve(requestHandler(req, res, next))
+                                                        .catch(next) ; 
+                                                }
+                                        }
 
 14) bcyrpt - hashes password . If someone steals your database , they cannot directly see user's password 
         use a pre function before saving user data , in which if a user has changed password then we will hash it .

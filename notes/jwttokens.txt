@@ -6,7 +6,7 @@ why we need jwt token -
     future requests . 
         1) by checking the login data from database which is hectic 
         2) JWT tokens 
-            when the user login , server provide it a token and every time any request shows up server just verifies the token each time 
+            when the user login , server provide browser it a token and every time any request shows up server just verifies the token each time 
 
 jwt token is just a string . 
     it has 3 parts - header , payload , signature 
@@ -22,7 +22,7 @@ jwt token is just a string .
         becuase it contains the secret key 
 
 Types of JWT tokens
-Access Token - short lived , contains user info and used to access protected route
+Access Token - short lived , contains user info and used to access protected route. it is given to the browser
 const generateAccessToken = function(){
     return jwt.sign({
         _id : this.id , 
@@ -34,6 +34,7 @@ const generateAccessToken = function(){
     }
     )
 }
-Refresh Token - long lived , used only to generate a new access token  
+Refresh Token - long lived , used only to generate a new access token  . stored in database 
+
 
 
