@@ -88,9 +88,12 @@
         })
     Schema - tells that how every user should look like 
 
-15) Mailgen Content is used to create html email
-    Mailtrap for sending email 
-        install nodemailer - it delivers email
+15)Mailgen-
+        Mailgen helps you generate a nice HTML email from a JavaScript object.
+        Nodemailer
+        Nodemailer actually sends the email through an SMTP server.
+
+        
 
 16) Validation - in project is the process of checking whether incoming data is correct, complete, safe, and follows your application's rules before using or storing it.
 

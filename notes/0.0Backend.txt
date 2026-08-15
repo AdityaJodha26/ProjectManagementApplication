@@ -69,3 +69,46 @@ backend flow -
         Service → contains the application's business logic.
         Database → stores and retrieves data.
         Response → sends the result back to the frontend.
+
+
+sending and creating email - 
+        Your code has 3 main jobs:
+        Mailgen → Creates email content
+        Nodemailer → Sends email
+        Mailtrap → SMTP server for testing emails
+        sendEmail()
+        This is the main reusable function:
+        options
+        ↓
+        Mailgen creates HTML + text
+        ↓
+        Nodemailer connects to SMTP
+        ↓
+        sendMail()
+        ↓
+        Email sent
+        It gets SMTP credentials from .env:
+        MAILTRAP_SMTP_HOST
+        MAILTRAP_SMTP_PORT
+        MAILTRAP_SMTP_USERNAME
+        MAILTRAP_SMTP_PASSWORD
+        Email content functions
+        emailVerificationMailGenContent() → creates email verification content.
+        forgotEmailMailGenContent() → creates password reset content.
+        They don't send emails; they only create the content.
+        Overall flow
+        User registers
+            ↓
+        Create verification URL
+            ↓
+        Generate email content
+            ↓
+        sendEmail()
+            ↓
+        Nodemailer
+            ↓
+        Mailtrap
+            ↓
+        User receives email
+        Remember:
+        Mailgen = make the email → Nodemailer = send the email → Mailtrap = SMTP service used for testing.

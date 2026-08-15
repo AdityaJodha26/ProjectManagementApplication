@@ -1,7 +1,7 @@
 import Mailgen from "mailgen" ; 
 import nodemailer from "nodemailer" ;
 
-const sendEmail = async(options) =>{
+const sendEmail = async(options) =>{ // options contains information such as email ,subject , mailgencontent
     const mailGenerator = new Mailgen({
         theme:"default" ,
         product: {
