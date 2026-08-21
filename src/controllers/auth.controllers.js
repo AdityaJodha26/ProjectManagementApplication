@@ -71,6 +71,31 @@ const registerUser = asyncHandler( async (req , res ) => {
             "User registered successfully"
         )
     )
+
+    const Login = asyncHandler(async(req, res ) =>{
+        const [email , username , password] = req.body
+        if(!email){
+            throw new ApiErrors(400 , "or email is required");
+        }
+
+        const user = await user.findOne({email})
+
+        if(!user){
+            throw new ApiErrors(400 , "User not found")
+        }
+
+        const isPasswordValid = await user.isPasswordCorrect(password) 
+        
+        if(!isPasswordValid){
+            throw new ApiError(400 , "User is not found")
+
+        }
+
+        const {accessToken , refreshToken} = await generateAccessAndRefreshTokens(user.id) 
+
+        
+        
+    })
 })
 export {registerUser} 
 

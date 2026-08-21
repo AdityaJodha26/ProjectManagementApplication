@@ -105,4 +105,14 @@ Express Validator : is a library validates data coming into your express backend
 
         In the middleware write the validate function which collects all the error and store them into a stack
 
+17) Login user with token and Cookie Data 
+        - take data from the user 
+        - validate 
+        - check if the user exist
+        - if the password is correct 
+        - Generate Tokens
+        - send tokens in cookies
+
+        write the login inside the auth controller
+
 
