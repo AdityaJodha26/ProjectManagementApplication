@@ -97,3 +97,12 @@
 
 16) Validation - in project is the process of checking whether incoming data is correct, complete, safe, and follows your application's rules before using or storing it.
 
+can use zod or express validator 
+
+Express Validator : is a library validates data coming into your express backend 
+        this will be store in the index.js inside validator 
+        where we install express validator and import body from it , then we create rules and put them into the routes .
+
+        In the middleware write the validate function which collects all the error and store them into a stack
+
+
