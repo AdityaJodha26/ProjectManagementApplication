@@ -12,7 +12,7 @@
 4) install dotenv  - it is used to store configuration and sensitive info 
         - import it on the main entry page 
         - dotenv.config method : search for the env file (path : "./.env)
-        - process.env.vname : is used to get any variable from the envfile
+        - process.env.name : is used to get any variable from the envfile
 
 5) mkdir - used to create folder 
    cd - goes into the folder 

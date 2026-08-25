@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 const connectDB = async()=>{
     try { 
         const connectionInstance = await mongoose.connect(process.env.MONGO_URI) ; 
-        console.log(`✅ MongoDB Connected" , ${connectionInstance.connection.host}`) ;
+        console.log(`✅ MongoDB Connected" , ${connectionInstance.connection.host}`) ;//“Get the host/server address from the database connection.”
 
     }catch(error){
         console.error("❌ MongoDB Not Connected" ) ; 
