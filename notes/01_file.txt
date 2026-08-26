@@ -115,4 +115,27 @@ Express Validator : is a library validates data coming into your express backend
 
         write the login inside the auth controller
 
-
+18)Auth middleware is used to check whether a user is authenticated before allowing them to access a protected route.
+        For example:
+        User → Request → Auth Middleware → Controller
+                        ↓
+                Is user logged in?
+                        ↙       ↘
+                Yes         No
+                ↓           ↓
+                Allow access   Reject
+        Usually it:
+        Gets the JWT/token from the request.
+        Verifies the token.
+        Identifies the user.
+        Attaches the user information to req.
+        Allows the request to continue with next().
+19) loging out user
+        If you're using JWT authentication, logout depends on how you store the token.
+        If you're using Access Token + Refresh Token
+        A common approach is:
+        Find the logged-in user.
+        Remove/invalidate their refresh token in the database.
+        Clear the authentication cookies.
+        Return success.
+        Example:
