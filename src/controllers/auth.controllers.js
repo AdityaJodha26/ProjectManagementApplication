@@ -150,6 +150,60 @@ const logout = asyncHandler(async(req, res)=>{
             message: "User logged in successfully"
         })
 })
-export {registerUser , login} 
+
+const getCurrentUser = asyncHandler(async(req, res)=>{
+    return res  
+        .status(200)
+        .json(new ApiResponse(200 , req.user , "Current User fetched Successfully"))
+
+})
+
+const verifyEmail = asyncHandler(async(req ,res)=>{
+    const {verificationToken} = req.params
+    if(!verificationToken){
+        throw new ApiError(400 , "Email verification token is missing")
+
+    }
+    let hashedToken = crypto
+        .createHash("sha256")
+        .update(verificationToken)
+        .digest("hex")
+
+        await User.findOne({
+            emailVericationToken:hashedToken , 
+            emailVerificationExpiry: {$gt: Date.now()}
+
+        })
+        if(!user){
+            throw new ApiError(400 , "Token is invalid or expired")
+
+        }
+
+        emailVericationToken = undefined 
+        emailVerificationExpiry = undefined
+
+        user.isEmailVerified = true 
+        await user.save({validateBeforeSave:false})
+
+        return res
+            .status(200)
+            .json(
+                new ApiResponse(
+                    200 ,
+                    {
+                        isEmailVerified : true ; 
+                    } ,
+
+                    "Email is Verified"
+                )
+            )
+
+    
+})
+
+const resendEmailVerification = asyncHandler(async(req, res)=>{
+    const user = await user.findOne
+})
+export {registerUser , login ,logout , getCurrentUser , verifyEmail} 
 
 

@@ -139,3 +139,20 @@ Express Validator : is a library validates data coming into your express backend
         Clear the authentication cookies.
         Return success.
         Example:
+
+20)email verification-
+What the controller does
+Token from URL
+      ↓
+Find user with that token
+      ↓
+Is token valid + not expired?
+      ↓
+     Yes
+      ↓
+isEmailVerified = true
+      ↓
+Remove verification token
+      ↓
+Save user
+So, controller = the actual logic that verifies the email.
