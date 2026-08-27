@@ -3,6 +3,7 @@ import {ApiResponse} from "../utils/apiResponse.js" ;
 import {ApiErrors} from "../utils/apiErrors.js" ; 
 import {asyncHandler} from "../utils/async-handler.js" ; 
 import {sendEmail ,emailVerificationMailGenContent} from "../utils/mail.js" ; 
+import jwt from jsonWebToken ; 
 const generateAccessAndRefreshTokens = async (userId) => {
     try{
         const user = await User.findById(userId) ;
@@ -202,8 +203,85 @@ const verifyEmail = asyncHandler(async(req ,res)=>{
 })
 
 const resendEmailVerification = asyncHandler(async(req, res)=>{
-    const user = await user.findOne
+    const user = await user.findOne(req.user?._id) ; 
+    if(!user){
+        throw new ApiError(404 , "User does not exist") ;
+    }
+
+    if(!user.isEmailVerified){
+        throw new ApiError(404 , "User is already verified")
+
+    }
+    const {unhashedToken , hashedToken , tokenExpiry } = user.generateTemporaryToken() ; 
+    
+    
+    
+
+    user.emailVerificationToken = hashedToken;
+    user.emailVerificationExpiry = tokenExpiry;
+    await user.save({validateBeforeSave : false}) 
+
+    await sendEmail({
+        email: user?.email,
+        subject:"please verify the email ",
+        mailgenContent : emailVerificationMailGenContent(
+            user.username , 
+            `${req.protocol}://${req.get("host")}/api/v1/users/verify-email/${unhashedToken}` ,
+            
+        )
+
+        
+
+    })
+
+    return res
+        .status(200) 
+        .json(200 , new ApiResponse(200 , {} , "mail has been sent to u again"))
+
 })
-export {registerUser , login ,logout , getCurrentUser , verifyEmail} 
+const refreshAccessToken = asyncHandler( async(req, res)=>{
+    const incomingRefreshToken = await req.cookies.refreshToken || req.body.refreshToken
+
+    if(!incomingRefreshToken){
+        throw new ApiError(200 , "Unauthorized Access")
+    }
+
+    try{
+        const decodedToken = jwt.verify(incomingRefreshToken , process.env.REFRESH_TOKEN_SECRET,);
+
+        const user = await User.findById(decodedToken?._id)
+        if(!user){
+            throw new ApiError(401 , "Invalid refresh Token") 
+        }
+        if(incomingRefreshToken !== user?.refreshToken){
+            throw new ApiError(401 , "Refresh token is expired") 
+        }
+
+        const options = {
+            httpOnly: true ,
+            secure : true 
+        }
+
+        const {accessToken , refreshToken: newRefreshToken} = await generateAccessAndRefreshTokens(user.id)
+
+        user.refreshToken = newRefreshToken ;
+        await user.save()
+
+        return res  
+                .status(200) 
+                .cookie("accessToken" , accessToken ,options)
+                .cookie("refreshToken" , newRefreshToken , options)
+                .json(
+                    new ApiResponse(200 , {accessToken , refreshToken : newRefreshToken} , "Access token refreshed")
+                )
+    }
+    catch(error){
+
+    }
+
+
+
+})
+export {registerUser , login ,logout , getCurrentUser , verifyEmail ,resendEmailVerification ,  refreshAccessToken } 
 
 

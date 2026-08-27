@@ -156,3 +156,64 @@ Remove verification token
       ↓
 Save user
 So, controller = the actual logic that verifies the email.
+
+21)resend email verification token-
+        Approach
+Get the user
+Usually from req.user after authentication middleware.
+Or find them using their email.
+Check if the user exists
+If not → return User not found.
+Check if already verified
+If isEmailVerified === true → don't send another email.
+Generate a new verification token
+Use crypto.randomBytes().
+Save the new token + expiry in the database
+For example, make it valid for 24 hours.
+Create the verification URL
+yourwebsite.com/verify-email/<token>
+Send the email
+Use your email service/function.
+Return success response
+In short
+Request
+  ↓
+Find User
+  ↓
+Already verified?
+  ↓ No
+Generate new token
+  ↓
+Save token + expiry
+  ↓
+Send email
+  ↓
+Success response
+The main idea is: generate a fresh token → store it → send it to the user's email.
+
+
+22)Refresh Access Token — Detailed Flow
+1. User logs in
+       ↓
+2. Server creates:
+   Access Token + Refresh Token
+       ↓
+3. Both are sent/stored on client
+       ↓
+4. Client uses Access Token for API requests
+       ↓
+5. Access Token expires
+       ↓
+6. Client sends Refresh Token to /refresh-token
+       ↓
+7. Backend verifies Refresh Token
+       ↓
+8. Backend finds the user
+       ↓
+9. Backend checks the stored Refresh Token
+       ↓
+10. Generate a new Access Token
+       ↓
+11. Send new Access Token to client
+       ↓
+12. Client uses new Access Token
