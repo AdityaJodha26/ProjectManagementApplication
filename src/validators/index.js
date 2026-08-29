@@ -65,7 +65,7 @@ const userForgotPasswordValidator = ()=>{
     ]
 }
 
-const userResetForgotPasswordValidator = ()=>{
+const userResetPasswordValidator = ()=>{
     return [
         body("newPassword")
             .notEmpty()
