@@ -72,4 +72,4 @@ const userResetPasswordValidator = ()=>{
             .withMessage("Password is required")
     ]
 }
-export {userRegisterValidator, userLoginValidator} ; 
+export {userRegisterValidator, userLoginValidator ,userChangeCurrentPasswordValidator ,userForgotPasswordValidator ,userResetPasswordValidator} ; 

@@ -124,7 +124,7 @@ const registerUser = asyncHandler( async (req , res ) => {
 
 const logout = asyncHandler(async(req, res)=>{
     await User.findByAndUpdate(
-        req.user.id
+        req.user.id,
         { 
             $set : {
                 refreshToken: "" , 
@@ -192,7 +192,7 @@ const verifyEmail = asyncHandler(async(req ,res)=>{
                 new ApiResponse(
                     200 ,
                     {
-                        isEmailVerified : true ; 
+                        isEmailVerified : true 
                     } ,
 
                     "Email is Verified"
@@ -203,7 +203,7 @@ const verifyEmail = asyncHandler(async(req ,res)=>{
 })
 
 const resendEmailVerification = asyncHandler(async(req, res)=>{
-    const user = await user.findOne(req.user?._id) ; 
+    const user = await user.findOne(req.user?.id) ; 
     if(!user){
         throw new ApiError(404 , "User does not exist") ;
     }
