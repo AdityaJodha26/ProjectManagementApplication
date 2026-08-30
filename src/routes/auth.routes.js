@@ -1,9 +1,9 @@
 import { Router } from "express"
 import {forgotPassword, refreshAccessToken, registerUser, resendEmailVerification, resetPassword, verifyEmail} from "../controllers/auth.controllers.js"
-import { login } from "../controllers/auth.controllers.js";
+import { login ,logout ,changePassword} from "../controllers/auth.controllers.js";
 import { userRegisterValidator, userLoginValidator ,userChangeCurrentPasswordValidator ,userForgotPasswordValidator   } from "../validators/index.js";
 import { validate } from "../middleware/validator.middleware.js";
-
+import { verifyJWT } from "../middleware/auth.middleware.js";
 
 
 const router = Router() ;
@@ -27,7 +27,7 @@ router
 
 //secureRoute
 router.route("/logout").post(verifyJWT , logout)
-router.route("/current0-user").post(verifyJWT , userChangeCurrentPasswordValidator() ,validate , changeCurrentPassword)
+router.route("/current0-user").post(verifyJWT , userChangeCurrentPasswordValidator() ,validate , changePassword)
 router.route("/resend-email-verification").post(verifyJWT , resendEmailVerification)
 
 
