@@ -22,10 +22,13 @@ app.get("/" , (req , res)=>{
 import healthCheckRouter from "./routes/healthcheck.routes.js" ; 
 import authRouter from "./routes/auth.routes.js" 
 import { healthcheck } from "./controllers/healthcheck.controllers.js";
+import projecRouter from "./routes/project.routes.js"
+
 
 app.use("/api/v1/auth" , authRouter)
 
 app.use("/api/v1/healthcheck" , healthCheckRouter) ;
+app.use("/api/v1/project" , projectRouter)
 
 
 
